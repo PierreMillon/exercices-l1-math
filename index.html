@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exercices type examen — L1 Maths</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header class="ex-header">
+    <h1>Exercices type examen</h1>
+    <a class="ex-back plain" href="https://pierremillon.github.io/licence-math/">← Site principal</a>
+  </header>
+
+  <p class="ex-intro">Pas de cours ici (il existe déjà une fiche pour ça),
+    juste les types d'exercice qui reviennent au partiel : méthode,
+    exemple rédigé, exercices d'entraînement avec solution à révéler.
+    Priorité à l'algèbre linéaire, l'analyse et les probabilités — les
+    trois piliers utiles en IA, finance et calcul quantique.</p>
+
+  <section class="review-box" id="reviewBox" hidden>
+    <h2>À réviser en priorité</h2>
+    <ul class="review-list" id="reviewList"></ul>
+  </section>
+
+  <nav class="pillar-grid" aria-label="Piliers">
+    <a class="pillar-card" href="algebre.html">
+      <h2>Algèbre linéaire</h2>
+      <p>Systèmes linéaires, sous-espaces vectoriels, familles et bases,
+        calcul matriciel, applications linéaires.</p>
+    </a>
+    <a class="pillar-card" href="analyse.html">
+      <h2>Analyse</h2>
+      <p>Suites, suites récurrentes, séries numériques, dérivation et
+        étude de fonction, développements limités.</p>
+    </a>
+    <a class="pillar-card" href="probabilites.html">
+      <h2>Probabilités</h2>
+      <p>Dénombrement, probabilité conditionnelle et indépendance,
+        variables aléatoires discrètes, lois usuelles.</p>
+    </a>
+  </nav>
+
+  <a class="python-card" href="python-applique.html" style="display:block; text-decoration:none; color:inherit;">
+    <h2>Python appliqué — 1 à 2h / semaine</h2>
+    <p>Une notion du cours reliée à un script court. Volontairement limité
+      pour ne pas déborder sur le temps de révision.</p>
+  </a>
+
+</div>
+<script src="engine.js"></script>
+<script src="data/algebre.js"></script>
+<script src="data/analyse.js"></script>
+<script src="data/probabilites.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+    const pillars = [
+      { key: 'algebre', label: 'Algèbre', types: ALGEBRE_TYPES, href: 'algebre.html' },
+      { key: 'analyse', label: 'Analyse', types: ANALYSE_TYPES, href: 'analyse.html' },
+      { key: 'probabilites', label: 'Probabilités', types: PROBABILITES_TYPES, href: 'probabilites.html' },
+    ];
+
+    const entries = [];
+    pillars.forEach(p => {
+      p.types.forEach(t => {
+        const ts = getSeen(p.key, t.id);
+        entries.push({
+          pillarLabel: p.label,
+          href: p.href + '#' + t.id,
+          title: t.title,
+          ts: ts,
+          days: ts ? daysAgo(ts) : Infinity,
+        });
+      });
+    });
+
+    // "À réviser" : jamais vu, ou vu il y a 7 jours ou plus — les plus
+    // anciens (ou jamais vus) en premier. Limité à 8 lignes pour rester
+    // dense sur l'accueil.
+    const toReview = entries
+      .filter(e => e.days >= 7)
+      .sort((a, b) => b.days - a.days)
+      .slice(0, 8);
+
+    const reviewBox = document.getElementById('reviewBox');
+    const reviewList = document.getElementById('reviewList');
+    if(toReview.length){
+      reviewBox.hidden = false;
+      toReview.forEach(e => {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.className = 'plain';
+        a.href = e.href;
+        a.textContent = e.pillarLabel + ' — ' + e.title;
+        const when = document.createElement('span');
+        when.className = 'review-when';
+        when.textContent = e.ts ? ('il y a ' + e.days + ' j') : 'jamais fait';
+        li.appendChild(a);
+        li.appendChild(when);
+        reviewList.appendChild(li);
+      });
+    }
+  });
+</script>
+</body>
+</html>

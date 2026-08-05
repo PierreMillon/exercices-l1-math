@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python appliqué — Exercices type examen</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script defer src="vendor/katex/katex.min.js"></script>
+<script defer src="vendor/katex/auto-render.min.js"></script>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="ex-header">
+    <h1>Python appliqué</h1>
+    <a class="ex-back plain" href="index.html">← Exercices</a>
+  </header>
+
+  <p class="ex-intro">1 à 2h maximum par semaine : un seul script court qui
+    relie une notion du cours à une application concrète. Volontairement
+    limité pour ne pas empiéter sur le temps de révision des fondamentaux
+    — la régularité prime sur l'exhaustivité.</p>
+
+  <main id="weeklyContainer"></main>
+
+</div>
+<script src="data/python-applique.js"></script>
+<script>
+  function typeset(el){
+    if(window.renderMathInElement && el){
+      window.renderMathInElement(el, {
+        delimiters: [
+          { left: '\\(', right: '\\)', display: false },
+          { left: '\\[', right: '\\]', display: true },
+        ],
+        throwOnError: false,
+      });
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    const container = document.getElementById('weeklyContainer');
+    WEEKLY_PYTHON.forEach((entry, i) => {
+      const card = document.createElement('section');
+      card.className = i === 0 ? 'python-card' : 'exemple';
+
+      const label = document.createElement('div');
+      label.className = 'bloc-label';
+      label.textContent = (i === 0 ? 'Cette semaine — ' : '') + entry.semaine;
+      card.appendChild(label);
+
+      const h2 = document.createElement('h2');
+      h2.textContent = entry.titre + ' (' + entry.duree + ')';
+      card.appendChild(h2);
+
+      const notion = document.createElement('p');
+      notion.innerHTML = '<em>Notion : ' + entry.notion + '</em>';
+      card.appendChild(notion);
+
+      const desc = document.createElement('p');
+      desc.innerHTML = entry.description;
+      card.appendChild(desc);
+
+      const pre = document.createElement('pre');
+      const code = document.createElement('code');
+      code.textContent = entry.code;
+      pre.appendChild(code);
+      card.appendChild(pre);
+
+      container.appendChild(card);
+    });
+    typeset(container);
+  });
+</script>
+</body>
+</html>

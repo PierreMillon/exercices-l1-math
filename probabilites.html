@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Probabilités — Exercices type examen</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script defer src="vendor/katex/katex.min.js"></script>
+<script defer src="vendor/katex/auto-render.min.js"></script>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="ex-header">
+    <h1>Probabilités</h1>
+    <a class="ex-back plain" href="index.html">← Exercices</a>
+  </header>
+
+  <p class="ex-intro">Dénombrement sur univers fini, probabilité
+    conditionnelle et indépendance, variables aléatoires discrètes, lois
+    usuelles — les probabilités de base qui reviennent au partiel.</p>
+
+  <div class="toolbar">
+    <button type="button" class="btn" id="toggleAllBtn">Afficher toutes les solutions</button>
+  </div>
+
+  <div id="tocSlot"></div>
+
+  <main id="typesContainer"></main>
+
+</div>
+<script src="engine.js"></script>
+<script src="data/probabilites.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+    initPillar('probabilites', PROBABILITES_TYPES);
+  });
+</script>
+</body>
+</html>

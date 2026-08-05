@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          # Pas de cache npm : le site n'a aucune dépendance ni package.json
+          # (HTML/CSS/JS vanilla, aucune étape de build).
+
+      - name: Vérifie la syntaxe de tous les fichiers JS
+        run: |
+          status=0
+          while IFS= read -r -d '' f; do
+            echo "node -c $f"
+            node -c "$f" || status=1
+          done < <(find . -name "*.js" -not -path "./.git/*" -not -path "./vendor/*" -print0)
+          exit $status

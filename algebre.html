@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Algèbre linéaire — Exercices type examen</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script defer src="vendor/katex/katex.min.js"></script>
+<script defer src="vendor/katex/auto-render.min.js"></script>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="ex-header">
+    <h1>Algèbre linéaire</h1>
+    <a class="ex-back plain" href="index.html">← Exercices</a>
+  </header>
+
+  <p class="ex-intro">Systèmes linéaires, sous-espaces vectoriels, familles
+    et bases, calcul matriciel, applications linéaires — les types
+    d'exercice qui reviennent le plus en examen de L1.</p>
+
+  <div class="toolbar">
+    <button type="button" class="btn" id="toggleAllBtn">Afficher toutes les solutions</button>
+  </div>
+
+  <div id="tocSlot"></div>
+
+  <main id="typesContainer"></main>
+
+</div>
+<script src="engine.js"></script>
+<script src="data/algebre.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+    initPillar('algebre', ALGEBRE_TYPES);
+  });
+</script>
+</body>
+</html>

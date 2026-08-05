@@ -1,0 +1,334 @@
+/* ============================================================
+   L1 MATHS — EXERCICES TYPE EXAMEN — style.css
+   Section volontairement sobre et dense (façon fiche de bac à
+   imprimer), distincte du thème pixel-art du reste du site :
+   pas de mascotte, pas de score, pas de combat hebdomadaire.
+   Noir & blanc, polices système (aucune dépendance réseau),
+   pensée pour l'impression comme pour la lecture à l'écran.
+   ============================================================ */
+
+:root{
+  --ink: #111;
+  --paper: #fff;
+  --line: #ccc;
+  --line-strong: #111;
+  --muted: #555;
+  --accent: #111;
+  --callout-bg: #f4f4f2;
+  --solution-bg: #fafaf8;
+  --max-width: 46rem;
+}
+
+@media (prefers-color-scheme: dark){
+  :root{
+    --ink: #e8e6e1;
+    --paper: #17171a;
+    --line: #3a3a3d;
+    --line-strong: #e8e6e1;
+    --muted: #a3a09a;
+    --accent: #e8e6e1;
+    --callout-bg: #201f22;
+    --solution-bg: #1c1b1e;
+  }
+}
+
+*{ box-sizing: border-box; }
+
+html{ color-scheme: light dark; }
+
+body{
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: Georgia, 'Times New Roman', 'Liberation Serif', serif;
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.wrap{
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 5rem;
+}
+
+a{ color: inherit; }
+a.plain{ text-decoration: none; }
+a.plain:hover{ text-decoration: underline; }
+
+/* ---------- en-tête ---------- */
+
+.ex-header{
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 2px solid var(--line-strong);
+  padding-bottom: 0.6rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.ex-header h1{
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.ex-back{
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.ex-intro{
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin: 0 0 1.5rem;
+}
+
+/* ---------- sommaire (liens d'ancre) ---------- */
+
+.toc{
+  border: 1px solid var(--line);
+  padding: 0.8rem 1rem;
+  margin: 0 0 2rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-size: 0.85rem;
+}
+
+.toc-label{
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.toc ol{
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.toc li{ margin: 0.15rem 0; }
+
+.toolbar{
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1.5rem;
+}
+
+.btn{
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background: none;
+  border: 1px solid var(--line-strong);
+  color: var(--ink);
+  padding: 0.4rem 0.7rem;
+  cursor: pointer;
+}
+.btn:hover{ background: var(--callout-bg); }
+
+/* ---------- types d'exercice ---------- */
+
+.type{
+  border-top: 1px solid var(--line);
+  padding-top: 1.6rem;
+  margin-top: 1.6rem;
+  scroll-margin-top: 1rem;
+}
+
+.type:first-of-type{ border-top: none; margin-top: 0; }
+
+.type h2{
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-size: 1.05rem;
+  margin: 0 0 0.15rem;
+}
+
+.type-last-seen{
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-size: 0.72rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin: 0 0 0.9rem;
+}
+
+.signal{
+  background: var(--callout-bg);
+  border-left: 3px solid var(--line-strong);
+  padding: 0.5rem 0.8rem;
+  margin: 0 0 1rem;
+  font-size: 0.92rem;
+}
+.signal-label{
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.15rem;
+  color: var(--muted);
+}
+
+.methode-label{
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 0.3rem;
+}
+
+.methode{
+  margin: 0 0 1.2rem;
+  padding-left: 1.3rem;
+}
+.methode li{ margin: 0.25rem 0; }
+
+.bloc-label{
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin: 0 0 0.3rem;
+}
+
+.exemple, .exercice{
+  border: 1px solid var(--line);
+  padding: 0.9rem 1rem;
+  margin: 0 0 1rem;
+}
+
+.enonce{ margin: 0 0 0.6rem; }
+.enonce:last-child{ margin-bottom: 0; }
+
+.solution{
+  background: var(--solution-bg);
+  border-top: 1px dashed var(--line);
+  padding-top: 0.7rem;
+  margin-top: 0.7rem;
+}
+
+.reveal-btn{
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background: none;
+  border: 1px solid var(--line-strong);
+  color: var(--ink);
+  padding: 0.35rem 0.7rem;
+  cursor: pointer;
+}
+.reveal-btn:hover{ background: var(--callout-bg); }
+
+/* ---------- page d'accueil des exercices ---------- */
+
+.pillar-grid{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin: 0 0 2rem;
+}
+
+.pillar-card{
+  display: block;
+  border: 1px solid var(--line-strong);
+  padding: 1rem 1.1rem;
+  text-decoration: none;
+  color: inherit;
+}
+.pillar-card:hover{ background: var(--callout-bg); }
+
+.pillar-card h2{
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin: 0 0 0.3rem;
+}
+
+.pillar-card p{
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.review-box{
+  border: 1px solid var(--line);
+  padding: 0.9rem 1.1rem;
+  margin: 0 0 2rem;
+  font-size: 0.9rem;
+}
+
+.review-box h2{
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 0 0 0.5rem;
+  color: var(--muted);
+}
+
+.review-list{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.review-list li{
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.25rem 0;
+  border-top: 1px solid var(--line);
+}
+.review-list li:first-child{ border-top: none; }
+.review-when{ color: var(--muted); white-space: nowrap; }
+
+.python-card{
+  border: 1px solid var(--line-strong);
+  padding: 1rem 1.1rem;
+  margin: 0 0 2rem;
+  background: var(--callout-bg);
+}
+.python-card h2{
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 0 0 0.4rem;
+}
+.python-card p{ margin: 0 0 0.6rem; }
+.python-card p:last-child{ margin-bottom: 0; }
+
+pre{
+  background: var(--solution-bg);
+  border: 1px solid var(--line);
+  padding: 0.8rem 0.9rem;
+  overflow-x: auto;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+code{ font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace; }
+
+/* ---------- impression ---------- */
+
+@media print{
+  .ex-back, .toolbar, .review-when{ display: none; }
+  body{ font-size: 12pt; }
+  .solution{ display: block !important; }
+  .reveal-btn{ display: none; }
+  .type{ break-inside: avoid-page; }
+  a{ text-decoration: none; color: inherit; }
+}
