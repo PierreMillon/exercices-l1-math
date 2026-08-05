@@ -2,9 +2,11 @@
    L1 MATHS — EXERCICES TYPE EXAMEN — style.css
    Section volontairement sobre et dense (façon fiche de bac à
    imprimer), distincte du thème pixel-art du reste du site :
-   pas de mascotte, pas de score, pas de combat hebdomadaire.
-   Noir & blanc, polices système (aucune dépendance réseau),
-   pensée pour l'impression comme pour la lecture à l'écran.
+   pas de mascotte, pas de combat hebdomadaire, pas de note
+   calculée — seul un score déclaré à la main (Réussi/Raté) est
+   suivi, en noir & blanc comme le reste (voir .feedback-btn).
+   Polices système (aucune dépendance réseau), pensée pour
+   l'impression comme pour la lecture à l'écran.
    ============================================================ */
 
 :root{
@@ -158,6 +160,15 @@ a.plain:hover{ text-decoration: underline; }
   color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 0.03em;
+  margin: 0 0 0.15rem;
+}
+
+.type-score{
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-size: 0.72rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
   margin: 0 0 0.9rem;
 }
 
@@ -232,6 +243,32 @@ a.plain:hover{ text-decoration: underline; }
   cursor: pointer;
 }
 .reveal-btn:hover{ background: var(--callout-bg); }
+
+.feedback{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 0.7rem;
+}
+.feedback[hidden]{ display: none; }
+.feedback-label{
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+}
+.feedback-btn{
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-size: 0.78rem;
+  background: none;
+  border: 1px solid var(--line-strong);
+  color: var(--ink);
+  padding: 0.35rem 0.7rem;
+  cursor: pointer;
+}
+.feedback-btn:hover{ background: var(--callout-bg); }
 
 /* ---------- page d'accueil des exercices ---------- */
 
@@ -328,7 +365,7 @@ code{ font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospa
   .ex-back, .toolbar, .review-when{ display: none; }
   body{ font-size: 12pt; }
   .solution{ display: block !important; }
-  .reveal-btn{ display: none; }
+  .reveal-btn, .feedback{ display: none; }
   .type{ break-inside: avoid-page; }
   a{ text-decoration: none; color: inherit; }
 }

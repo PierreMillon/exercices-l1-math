@@ -4,9 +4,9 @@ Site statique (HTML/CSS/JS vanilla, sans framework ni build), volontairement
 séparé du site principal de fiches de cours + QCM
 ([licence-math](https://github.com/PierreMillon/licence-math),
 déployé sur https://pierremillon.github.io/licence-math/). Ici : pas de
-cours, pas de score, pas de mascotte — uniquement les types d'exercice qui
-reviennent au partiel, dans un format sobre et dense pensé pour s'entraîner
-vite et pour être imprimé.
+cours, pas de mascotte, pas de note calculée — uniquement les types
+d'exercice qui reviennent au partiel, dans un format sobre et dense pensé
+pour s'entraîner vite et pour être imprimé.
 
 Déployé sur https://pierremillon.github.io/exercices-l1-math/.
 
@@ -49,7 +49,8 @@ système ou une grande formule).
 1. Ouvrir le fichier `data/<pilier>.js` correspondant.
 2. Ajouter un nouvel objet au tableau, en suivant le format ci-dessus.
 3. Rien d'autre à faire : `engine.js` génère automatiquement la carte, le
-   sommaire (ancre) et le bouton de révélation de solution.
+   sommaire (ancre), le bouton de révélation de solution et les boutons
+   Réussi/Raté sous chaque exercice d'entraînement.
 
 ## Ajouter une semaine de Python appliqué
 
@@ -63,8 +64,25 @@ Chaque fois qu'un exercice est révélé (ou que toutes les solutions d'une
 page sont affichées), la date est enregistrée dans `localStorage`
 (clé `l1ex_seen_<pilier>_<id>`). L'accueil (`index.html`) lit ces dates
 pour afficher une liste discrète « à réviser en priorité » (types jamais
-faits ou non revus depuis 7 jours ou plus) — aucun score, aucune
-pénalité, juste un rappel.
+faits ou non revus depuis 7 jours ou plus) — pas de pénalité, juste un
+rappel basé sur la date, pas sur la performance.
+
+## Réussite déclarée (Réussi / Raté)
+
+Sous chaque exercice d'entraînement, une fois la solution révélée, deux
+boutons **✓ Réussi** / **✗ Raté** permettent de s'auto-évaluer (le site ne
+corrige rien automatiquement — c'est déclaratif). Chaque clic ajuste de
+±1 un score cumulé par type d'exercice, stocké dans `localStorage`
+(clé `l1ex_score_<pilier>_<id>`), affiché sous le titre du type
+(« Réussite déclarée : +N »).
+
+Les boutons eux-mêmes n'ont pas de mémoire : ils repartent à zéro
+visuellement à chaque rechargement de page (on peut refaire un exercice
+à une séance suivante et redéclarer un résultat) — seul le score cumulé
+persiste. L'accueil (`index.html`) lit ces scores pour afficher deux
+classements (« Exercices les moins réussis » / « Exercices les plus
+réussis », 5 types maximum chacun), limités aux types déjà auto-évalués
+au moins une fois.
 
 ## Dépendances
 

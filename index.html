@@ -25,6 +25,16 @@
     <ul class="review-list" id="reviewList"></ul>
   </section>
 
+  <section class="review-box" id="leastSuccessBox" hidden>
+    <h2>Exercices les moins réussis</h2>
+    <ul class="review-list" id="leastSuccessList"></ul>
+  </section>
+
+  <section class="review-box" id="mostSuccessBox" hidden>
+    <h2>Exercices les plus réussis</h2>
+    <ul class="review-list" id="mostSuccessList"></ul>
+  </section>
+
   <nav class="pillar-grid" aria-label="Piliers">
     <a class="pillar-card" href="algebre.html">
       <h2>Algèbre linéaire</h2>
@@ -72,6 +82,7 @@
           title: t.title,
           ts: ts,
           days: ts ? daysAgo(ts) : Infinity,
+          score: getScore(p.key, t.id),
         });
       });
     });
@@ -102,6 +113,38 @@
         reviewList.appendChild(li);
       });
     }
+
+    // Classement par réussite déclarée (boutons Réussi/Raté sur chaque
+    // exercice, ±1 cumulé par type) : uniquement les types déjà
+    // auto-évalués au moins une fois (score non nul/null). C'est un
+    // classement basé sur ce que l'utilisateur a déclaré, pas sur un
+    // choix arbitraire du site.
+    const attempted = entries.filter(e => e.score !== null);
+
+    function fillScoreList(boxId, listId, list){
+      const box = document.getElementById(boxId);
+      const ul = document.getElementById(listId);
+      if(!list.length) return;
+      box.hidden = false;
+      list.forEach(e => {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.className = 'plain';
+        a.href = e.href;
+        a.textContent = e.pillarLabel + ' — ' + e.title;
+        const sc = document.createElement('span');
+        sc.className = 'review-when';
+        sc.textContent = (e.score > 0 ? '+' : '') + e.score;
+        li.appendChild(a);
+        li.appendChild(sc);
+        ul.appendChild(li);
+      });
+    }
+
+    const leastSuccess = attempted.slice().sort((a, b) => a.score - b.score).slice(0, 5);
+    const mostSuccess = attempted.slice().sort((a, b) => b.score - a.score).slice(0, 5);
+    fillScoreList('leastSuccessBox', 'leastSuccessList', leastSuccess);
+    fillScoreList('mostSuccessBox', 'mostSuccessList', mostSuccess);
   });
 </script>
 </body>

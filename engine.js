@@ -17,13 +17,19 @@
 
    Le texte peut contenir des formules KaTeX délimitées par
    \( ... \) (inline) ou \[ ... \] (bloc), et du HTML simple.
-   Progression : on ne note pas un score, on trace juste la
-   dernière consultation de chaque type dans localStorage, pour
-   afficher un indicateur de régularité sobre sur l'accueil
-   (voir index.html) — pas de gamification ici.
+   Progression : pas de gamification (pas de note calculée, pas de
+   correction automatique). Deux mécanismes, tous deux déclaratifs :
+   - dernière consultation de chaque type (localStorage), pour
+     l'indicateur de régularité "à réviser en priorité" (index.html) ;
+   - score de réussite déclaré à la main sur chaque exercice
+     d'entraînement une fois la solution révélée (bouton Réussi/Raté),
+     cumulé par type. C'est l'utilisateur qui juge s'il a réussi, pas
+     le site — le score sert juste à faire remonter sur l'accueil les
+     types les moins réussis (voir index.html).
    ============================================================ */
 
 const SEEN_PREFIX = 'l1ex_seen_';
+const SCORE_PREFIX = 'l1ex_score_';
 
 function typesetMath(el){
   if(window.renderMathInElement && el){
@@ -62,6 +68,27 @@ function formatLastSeen(pillarKey, typeId){
   return 'Consulté il y a ' + d + ' jours';
 }
 
+function getScore(pillarKey, typeId){
+  try{
+    const raw = localStorage.getItem(SCORE_PREFIX + pillarKey + '_' + typeId);
+    return raw === null ? null : Number(raw);
+  }catch(e){ return null; }
+}
+
+function bumpScore(pillarKey, typeId, delta){
+  try{
+    const next = (getScore(pillarKey, typeId) || 0) + delta;
+    localStorage.setItem(SCORE_PREFIX + pillarKey + '_' + typeId, String(next));
+    return next;
+  }catch(e){ return null; }
+}
+
+function formatScore(pillarKey, typeId){
+  const s = getScore(pillarKey, typeId);
+  if(s === null) return 'Pas encore auto-évalué';
+  return 'Réussite déclarée : ' + (s > 0 ? '+' : '') + s;
+}
+
 function renderExercice(pillarKey, typeId, exo, index, kind){
   const wrap = document.createElement('div');
   wrap.className = kind === 'exemple' ? 'exemple' : 'exercice';
@@ -84,6 +111,42 @@ function renderExercice(pillarKey, typeId, exo, index, kind){
     wrap.appendChild(solution);
   }else{
     solution.hidden = true;
+
+    const feedback = document.createElement('div');
+    feedback.className = 'feedback';
+    feedback.hidden = true;
+
+    const feedbackLabel = document.createElement('span');
+    feedbackLabel.className = 'feedback-label';
+    feedbackLabel.textContent = 'Réussi ?';
+    feedback.appendChild(feedbackLabel);
+
+    const okBtn = document.createElement('button');
+    okBtn.type = 'button';
+    okBtn.className = 'feedback-btn';
+    okBtn.textContent = '✓ Réussi';
+    feedback.appendChild(okBtn);
+
+    const koBtn = document.createElement('button');
+    koBtn.type = 'button';
+    koBtn.className = 'feedback-btn';
+    koBtn.textContent = '✗ Raté';
+    feedback.appendChild(koBtn);
+
+    function note(delta){
+      bumpScore(pillarKey, typeId, delta);
+      const scoreEl = document.getElementById('score-' + typeId);
+      if(scoreEl) scoreEl.textContent = formatScore(pillarKey, typeId);
+    }
+    // Déclaratif et sans mémoire d'état : chaque clic ajuste le score de
+    // ±1 immédiatement, les boutons restent cliquables (on peut refaire
+    // l'exercice à une séance suivante et redéclarer un résultat). Rien
+    // n'est désactivé ni "coché" — seul le score cumulé est conservé
+    // (localStorage), pas l'état des boutons, qui repart à zéro visuellement
+    // à chaque rechargement de page.
+    okBtn.addEventListener('click', () => note(1));
+    koBtn.addEventListener('click', () => note(-1));
+
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'reveal-btn';
@@ -91,11 +154,13 @@ function renderExercice(pillarKey, typeId, exo, index, kind){
     btn.addEventListener('click', () => {
       const showing = !solution.hidden;
       solution.hidden = showing;
+      feedback.hidden = showing;
       btn.textContent = showing ? 'Voir la solution rédigée' : 'Masquer la solution';
       if(!showing){ markSeen(pillarKey, typeId); }
     });
     wrap.appendChild(btn);
     wrap.appendChild(solution);
+    wrap.appendChild(feedback);
   }
 
   return wrap;
@@ -115,6 +180,12 @@ function renderType(pillarKey, type){
   lastSeen.id = 'lastseen-' + type.id;
   lastSeen.textContent = formatLastSeen(pillarKey, type.id);
   section.appendChild(lastSeen);
+
+  const score = document.createElement('p');
+  score.className = 'type-score';
+  score.id = 'score-' + type.id;
+  score.textContent = formatScore(pillarKey, type.id);
+  section.appendChild(score);
 
   const signal = document.createElement('p');
   signal.className = 'signal';
@@ -181,6 +252,7 @@ function initPillar(pillarKey, types){
     toggleBtn.addEventListener('click', () => {
       allShown = !allShown;
       container.querySelectorAll('.solution').forEach(sol => { sol.hidden = !allShown; });
+      container.querySelectorAll('.feedback').forEach(fb => { fb.hidden = !allShown; });
       container.querySelectorAll('.reveal-btn').forEach(btn => {
         btn.textContent = allShown ? 'Masquer la solution' : 'Voir la solution rédigée';
       });
