@@ -25,52 +25,29 @@
   <main id="weeklyContainer"></main>
 
 </div>
+<script src="katex-typeset.js"></script>
 <script src="data/python-applique.js"></script>
 <script>
-  function typeset(el){
-    if(window.renderMathInElement && el){
-      window.renderMathInElement(el, {
-        delimiters: [
-          { left: '\\(', right: '\\)', display: false },
-          { left: '\\[', right: '\\]', display: true },
-        ],
-        throwOnError: false,
-      });
-    }
+  // Échappement pour le seul bloc inséré tel quel dans le HTML sans être
+  // du HTML : le code source Python (peut contenir <, >, & — ex.
+  // comparaisons, imports). Le reste (notion, description) est déjà en
+  // HTML simple de confiance, comme partout ailleurs sur le site.
+  function escapeHtml(s){
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
 
   document.addEventListener('DOMContentLoaded', function(){
     const container = document.getElementById('weeklyContainer');
-    WEEKLY_PYTHON.forEach((entry, i) => {
-      const card = document.createElement('section');
-      card.className = i === 0 ? 'python-card' : 'exemple';
-
-      const label = document.createElement('div');
-      label.className = 'bloc-label';
-      label.textContent = (i === 0 ? 'Cette semaine — ' : '') + entry.semaine;
-      card.appendChild(label);
-
-      const h2 = document.createElement('h2');
-      h2.textContent = entry.titre + ' (' + entry.duree + ')';
-      card.appendChild(h2);
-
-      const notion = document.createElement('p');
-      notion.innerHTML = '<em>Notion : ' + entry.notion + '</em>';
-      card.appendChild(notion);
-
-      const desc = document.createElement('p');
-      desc.innerHTML = entry.description;
-      card.appendChild(desc);
-
-      const pre = document.createElement('pre');
-      const code = document.createElement('code');
-      code.textContent = entry.code;
-      pre.appendChild(code);
-      card.appendChild(pre);
-
-      container.appendChild(card);
-    });
-    typeset(container);
+    container.innerHTML = WEEKLY_PYTHON.map((entry, i) => `
+      <section class="${i === 0 ? 'python-card' : 'exemple'}">
+        <div class="bloc-label">${i === 0 ? 'Cette semaine — ' : ''}${entry.semaine}</div>
+        <h2>${entry.titre} (${entry.duree})</h2>
+        <p><em>Notion : ${entry.notion}</em></p>
+        <p>${entry.description}</p>
+        <pre><code>${escapeHtml(entry.code)}</code></pre>
+      </section>
+    `).join('');
+    typesetMath(container);
   });
 </script>
 </body>

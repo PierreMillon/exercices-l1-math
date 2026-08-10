@@ -4,7 +4,7 @@
    imprimer), distincte du thème pixel-art du reste du site :
    pas de mascotte, pas de combat hebdomadaire, pas de note
    calculée — seul un score déclaré à la main (Réussi/Raté) est
-   suivi, en noir & blanc comme le reste (voir .feedback-btn).
+   suivi, en noir & blanc comme le reste (voir .btn).
    Polices système (aucune dépendance réseau), pensée pour
    l'impression comme pour la lecture à l'écran.
    ============================================================ */
@@ -19,6 +19,7 @@
   --callout-bg: #f4f4f2;
   --solution-bg: #fafaf8;
   --max-width: 46rem;
+  --font-ui: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
 }
 
 @media (prefers-color-scheme: dark){
@@ -71,7 +72,7 @@ a.plain:hover{ text-decoration: underline; }
 }
 
 .ex-header h1{
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-family: var(--font-ui);
   font-size: 1.4rem;
   letter-spacing: 0.03em;
   text-transform: uppercase;
@@ -79,7 +80,7 @@ a.plain:hover{ text-decoration: underline; }
 }
 
 .ex-back{
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-family: var(--font-ui);
   font-size: 0.8rem;
   letter-spacing: 0.03em;
   text-transform: uppercase;
@@ -98,7 +99,7 @@ a.plain:hover{ text-decoration: underline; }
   border: 1px solid var(--line);
   padding: 0.8rem 1rem;
   margin: 0 0 2rem;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-family: var(--font-ui);
   font-size: 0.85rem;
 }
 
@@ -125,7 +126,7 @@ a.plain:hover{ text-decoration: underline; }
 }
 
 .btn{
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-family: var(--font-ui);
   font-size: 0.78rem;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -149,13 +150,13 @@ a.plain:hover{ text-decoration: underline; }
 .type:first-of-type{ border-top: none; margin-top: 0; }
 
 .type h2{
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-family: var(--font-ui);
   font-size: 1.05rem;
   margin: 0 0 0.15rem;
 }
 
 .type-last-seen{
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-family: var(--font-ui);
   font-size: 0.72rem;
   color: var(--muted);
   text-transform: uppercase;
@@ -164,7 +165,7 @@ a.plain:hover{ text-decoration: underline; }
 }
 
 .type-score{
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-family: var(--font-ui);
   font-size: 0.72rem;
   color: var(--muted);
   text-transform: uppercase;
@@ -180,7 +181,7 @@ a.plain:hover{ text-decoration: underline; }
   font-size: 0.92rem;
 }
 .signal-label{
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-family: var(--font-ui);
   font-weight: 700;
   font-size: 0.72rem;
   letter-spacing: 0.05em;
@@ -191,7 +192,7 @@ a.plain:hover{ text-decoration: underline; }
 }
 
 .methode-label{
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-family: var(--font-ui);
   font-weight: 700;
   font-size: 0.72rem;
   letter-spacing: 0.05em;
@@ -207,7 +208,7 @@ a.plain:hover{ text-decoration: underline; }
 .methode li{ margin: 0.25rem 0; }
 
 .bloc-label{
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-family: var(--font-ui);
   font-weight: 700;
   font-size: 0.75rem;
   letter-spacing: 0.04em;
@@ -231,19 +232,6 @@ a.plain:hover{ text-decoration: underline; }
   margin-top: 0.7rem;
 }
 
-.reveal-btn{
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  background: none;
-  border: 1px solid var(--line-strong);
-  color: var(--ink);
-  padding: 0.35rem 0.7rem;
-  cursor: pointer;
-}
-.reveal-btn:hover{ background: var(--callout-bg); }
-
 .feedback{
   display: flex;
   align-items: center;
@@ -253,22 +241,15 @@ a.plain:hover{ text-decoration: underline; }
 }
 .feedback[hidden]{ display: none; }
 .feedback-label{
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-family: var(--font-ui);
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.03em;
   color: var(--muted);
 }
-.feedback-btn{
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-  font-size: 0.78rem;
-  background: none;
-  border: 1px solid var(--line-strong);
-  color: var(--ink);
-  padding: 0.35rem 0.7rem;
-  cursor: pointer;
-}
-.feedback-btn:hover{ background: var(--callout-bg); }
+/* Les boutons "voir la solution" et "Réussi/Raté" partagent le style
+   de .btn (défini plus haut, toolbar) — inutile de le redéfinir deux
+   fois avec les mêmes propriétés pour un rendu identique. */
 
 /* ---------- page d'accueil des exercices ---------- */
 
@@ -289,7 +270,7 @@ a.plain:hover{ text-decoration: underline; }
 .pillar-card:hover{ background: var(--callout-bg); }
 
 .pillar-card h2{
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-family: var(--font-ui);
   font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.03em;
@@ -310,7 +291,7 @@ a.plain:hover{ text-decoration: underline; }
 }
 
 .review-box h2{
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-family: var(--font-ui);
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -340,7 +321,7 @@ a.plain:hover{ text-decoration: underline; }
   background: var(--callout-bg);
 }
 .python-card h2{
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-family: var(--font-ui);
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -365,7 +346,7 @@ code{ font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospa
   .ex-back, .toolbar, .review-when{ display: none; }
   body{ font-size: 12pt; }
   .solution{ display: block !important; }
-  .reveal-btn, .feedback{ display: none; }
+  .js-reveal, .feedback{ display: none; }
   .type{ break-inside: avoid-page; }
   a{ text-decoration: none; color: inherit; }
 }

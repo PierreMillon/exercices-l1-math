@@ -61,15 +61,19 @@
 
 </div>
 <script src="engine.js"></script>
-<script src="data/algebre.js"></script>
-<script src="data/analyse.js"></script>
-<script src="data/probabilites.js"></script>
+<!-- Index légers (id + titre seulement, voir data/algebre-index.js) :
+     l'accueil n'a besoin que de ça pour ses listes de suivi, pas des
+     énoncés/solutions complets (data/<pilier>.js, chargés uniquement
+     par les pages piliers elles-mêmes). -->
+<script src="data/algebre-index.js"></script>
+<script src="data/analyse-index.js"></script>
+<script src="data/probabilites-index.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function(){
     const pillars = [
-      { key: 'algebre', label: 'Algèbre', types: ALGEBRE_TYPES, href: 'algebre.html' },
-      { key: 'analyse', label: 'Analyse', types: ANALYSE_TYPES, href: 'analyse.html' },
-      { key: 'probabilites', label: 'Probabilités', types: PROBABILITES_TYPES, href: 'probabilites.html' },
+      { key: 'algebre', label: 'Algèbre', types: ALGEBRE_INDEX, href: 'algebre.html' },
+      { key: 'analyse', label: 'Analyse', types: ANALYSE_INDEX, href: 'analyse.html' },
+      { key: 'probabilites', label: 'Probabilités', types: PROBABILITES_INDEX, href: 'probabilites.html' },
     ];
 
     const entries = [];

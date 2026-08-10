@@ -48,9 +48,28 @@ système ou une grande formule).
 
 1. Ouvrir le fichier `data/<pilier>.js` correspondant.
 2. Ajouter un nouvel objet au tableau, en suivant le format ci-dessus.
-3. Rien d'autre à faire : `engine.js` génère automatiquement la carte, le
+3. Répercuter le `id`/`title` dans `data/<pilier>-index.js` (voir section
+   suivante) — sinon `scripts/check-index.js` échoue en CI.
+4. Rien d'autre à faire : `engine.js` génère automatiquement la carte, le
    sommaire (ancre), le bouton de révélation de solution et les boutons
    Réussi/Raté sous chaque exercice d'entraînement.
+
+## Index léger par pilier (`data/<pilier>-index.js`)
+
+L'accueil (`index.html`) n'affiche que des listes de `id`/`title` (à
+réviser, moins/plus réussis) — il n'a pas besoin des énoncés et
+solutions complets. Plutôt que de lui faire télécharger les trois
+fichiers `data/<pilier>.js` en entier (~48 Ko à eux trois, contre ~3 Ko
+pour les index), chaque pilier a un second fichier, `data/<pilier>-index.js`,
+qui ne contient que `[{ id, title }, ...]` — c'est ce que charge
+l'accueil, les pages piliers continuant de charger le fichier complet.
+
+Ces deux fichiers doivent rester synchronisés à la main : après avoir
+ajouté/modifié/supprimé un type dans `data/<pilier>.js`, reporter le même
+changement (juste `id` et `title`) dans `data/<pilier>-index.js`.
+`scripts/check-index.js` (exécuté en CI sur chaque pull request) compare
+les deux et échoue en cas de désynchronisation, avec le contenu attendu
+dans le message d'erreur.
 
 ## Ajouter une semaine de Python appliqué
 
@@ -91,3 +110,17 @@ auto-hébergé directement dans ce dépôt (voir `vendor/katex/LICENSE`, MIT)
 plutôt que chargé depuis un CDN, pour ne dépendre d'aucun service externe
 au runtime. Pas de police Google Fonts ici — polices système uniquement,
 pour une section volontairement plus légère.
+
+## Fichiers
+
+- `engine.js` — moteur commun aux 3 pages piliers (rendu des types
+  d'exercice par template HTML + délégation d'événements, suivi de
+  consultation et de réussite déclarée).
+- `katex-typeset.js` — un seul helper `typesetMath()`, partagé entre
+  `engine.js` et `python-applique.html` (évite de dupliquer la config
+  KaTeX entre les deux).
+- `data/<pilier>.js` — données complètes d'un pilier (chargées par sa
+  page). `data/<pilier>-index.js` — même pilier, `id`/`title`
+  seulement (chargé par `index.html`, voir plus haut).
+- `scripts/check-index.js` — vérifie en CI que chaque
+  `data/<pilier>-index.js` est synchronisé avec son `data/<pilier>.js`.

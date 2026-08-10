@@ -27,3 +27,6 @@ jobs:
             node -c "$f" || status=1
           done < <(find . -name "*.js" -not -path "./.git/*" -not -path "./vendor/*" -print0)
           exit $status
+
+      - name: Vérifie que les index légers (data/*-index.js) sont synchronisés
+        run: node scripts/check-index.js
