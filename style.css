@@ -39,6 +39,11 @@
 
 html{ color-scheme: light dark; }
 
+html, body{
+  overscroll-behavior-x: none;
+  touch-action: pan-y;
+}
+
 body{
   margin: 0;
   background: var(--paper);
