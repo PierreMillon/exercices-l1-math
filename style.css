@@ -46,6 +46,15 @@ html, body{
      le zoom doit rester possible partout, seul le zoom EN DESSOUS de
      100% est bloqué (minimum-scale=1.0 sur le viewport). */
   touch-action: pan-y pinch-zoom;
+  /* KaTeX rend toujours une annotation MathML cachée (.katex-mathml,
+     accessibilité) en position absolute, non wrappée et non visible
+     (clip 1x1px) — mais un navigateur compte quand même sa largeur
+     réelle dans le scrollWidth de la page si aucun ancêtre positionné
+     ne l'arrête avant, ce qui provoque un débordement horizontal
+     invisible (glissement latéral possible, rien à voir dedans) sur
+     toute formule un peu large. overflow-x:hidden ici l'empêche sans
+     toucher au rendu visible de rien d'autre sur la page. */
+  overflow-x: hidden;
 }
 
 body{
