@@ -16,6 +16,7 @@ const PILLARS = [
   { full: 'data/algebre.js', fullVar: 'ALGEBRE_TYPES', index: 'data/algebre-index.js', indexVar: 'ALGEBRE_INDEX' },
   { full: 'data/analyse.js', fullVar: 'ANALYSE_TYPES', index: 'data/analyse-index.js', indexVar: 'ANALYSE_INDEX' },
   { full: 'data/probabilites.js', fullVar: 'PROBABILITES_TYPES', index: 'data/probabilites-index.js', indexVar: 'PROBABILITES_INDEX' },
+  { full: 'data/calculus.js', fullVar: 'CALCULUS_TYPES', index: 'data/calculus-index.js', indexVar: 'CALCULUS_INDEX' },
 ];
 
 // Les fichiers de données déclarent leur variable avec `const` au

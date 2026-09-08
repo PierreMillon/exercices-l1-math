@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+<title>Calculus — Exercices type examen</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script defer src="vendor/katex/katex.min.js"></script>
+<script defer src="vendor/katex/auto-render.min.js"></script>
+<script defer src="pwa.js"></script>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#111111">
+</head>
+<body>
+<div class="wrap">
+
+  <header class="ex-header">
+    <h1>Calculus (pratique du calcul mathématique)</h1>
+    <a class="ex-back plain" href="index.html">← Exercices</a>
+  </header>
+
+  <p class="ex-intro">Fractions, coefficients binomiaux, puissances entières,
+    radicaux — reconstruit à partir de la Séance 1 du semestre en cours
+    (INU Champollion). D'autres séances viendront s'ajouter au fil de
+    l'année.</p>
+
+  <div class="toolbar">
+    <button type="button" class="btn" id="toggleAllBtn">Afficher toutes les solutions</button>
+  </div>
+
+  <div id="tocSlot"></div>
+
+  <main id="typesContainer"></main>
+
+</div>
+<script src="katex-typeset.js"></script>
+<script src="engine.js"></script>
+<script src="data/calculus.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+    initPillar('calculus', CALCULUS_TYPES);
+  });
+</script>
+</body>
+</html>

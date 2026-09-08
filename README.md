@@ -12,11 +12,27 @@ Déployé sur https://pierremillon.github.io/exercices-l1-math/.
 
 ## Portée
 
-Priorité à l'**algèbre linéaire**, l'**analyse** (suites, séries, calcul
-différentiel) et les **probabilités de base** — les trois piliers utiles
-en IA, finance et calcul quantique. Une section **Python appliqué** relie
-occasionnellement une notion du cours à un script court (1 à 2h max par
-semaine, volontairement limité pour ne pas empiéter sur la révision).
+Contenu reconstruit à partir des **vrais TD du semestre en cours** (INU
+Champollion, source Drive), séance par séance, plutôt que rédigé à
+l'avance sur l'ensemble du programme (`README` avant le 08/09/2026)
+– l'algèbre linéaire, l'analyse, les probabilités et Python appliqué
+d'origine ne collaient plus forcément à ce qui est réellement enseigné
+cette année.
+
+- **Calculus** (nommé « pratique du calcul mathématique » sur les sujets
+  de contrôle continu — même cours, deux intitulés) : premier pilier
+  reconstruit, à partir de la Séance 1 (fractions, coefficients
+  binomiaux, puissances entières, radicaux). Les 16 exercices officiels
+  du TD y sont tous repris (`data/calculus.js`), plus 1 exercice inventé
+  pour étoffer un type qui n'en avait qu'un seul côté officiel — signalé
+  en commentaire à l'endroit concerné.
+- Algèbre linéaire, analyse, probabilités, Python appliqué :
+  **suspendus** (retirés de `index.html`, mais fichiers conservés tels
+  quels — `algebre.html`, `analyse.html`, `probabilites.html`,
+  `python-applique.html` + leurs `data/*.js`) le temps d'être reconstruits
+  de la même façon, séance après séance, à partir des vrais TD de
+  l'année. Accessibles par URL directe, juste absents de l'accueil et
+  du suivi de régularité/réussite tant qu'ils n'ont pas été repris.
 
 ## Format d'un type d'exercice
 

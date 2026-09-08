@@ -1,7 +1,9 @@
 /* ============================================================
    L1 MATHS — EXERCICES TYPE EXAMEN — engine.js
-   Moteur commun aux 3 pages piliers (algebre.html, analyse.html,
-   probabilites.html). Chaque page ne fournit que ses données
+   Moteur commun aux pages piliers (calculus.html, en service ; plus
+   algebre.html, analyse.html, probabilites.html, suspendues mais
+   toujours fonctionnelles par URL directe — voir README). Chaque page
+   ne fournit que ses données
    (un tableau de "types d'exercice", voir data/*.js) et appelle
    initPillar(pillarKey, types).
 
