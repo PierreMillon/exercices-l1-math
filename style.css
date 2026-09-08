@@ -348,6 +348,26 @@ a.plain:hover{ text-decoration: underline; }
 .python-card p{ margin: 0 0 0.6rem; }
 .python-card p:last-child{ margin-bottom: 0; }
 
+/* ---------- débordement des formules KaTeX ---------- */
+
+/* Formule \[ ... \] (bloc) trop large pour l'écran : scrolle plutôt que
+   de déborder du cadre. Comportement natif de KaTeX en display:block,
+   il ne manquait que l'overflow. */
+.katex-display{
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+/* Formule \( ... \) (inline, ex. une fraction \dfrac imbriquée) trop
+   large : enveloppée par wrapOverflowingMath() (katex-typeset.js) dans
+   ce conteneur, qui la fait scroller au lieu de déborder. */
+.math-scroll{
+  display: block;
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+}
+
 pre{
   background: var(--solution-bg);
   border: 1px solid var(--line);
