@@ -9,7 +9,7 @@
    Stratégie volontairement simple, cohérente avec un site statique
    sans build ni API :
    - install  : précharge tout ce qu'il faut pour une utilisation
-     complète hors-ligne (les 5 pages, le CSS/JS, les données de
+     complète hors-ligne (les 6 pages, le CSS/JS, les données de
      chaque pilier, KaTeX vendorisé, manifest, icônes).
    - activate : supprime les anciens caches (versions précédentes du
      site) pour ne jamais accumuler de fichiers obsolètes.
@@ -23,18 +23,32 @@
    licence-math/alice-et-sophie) : VERSION ci-dessous est une
    constante locale à sw.js, à incrémenter manuellement à chaque ship
    qui touche un fichier précaché (HTML/CSS/JS/data/*.js) — sinon le
-   service worker sert indéfiniment une vieille version en cache. */
-const VERSION = 1;
+   service worker sert indéfiniment une vieille version en cache.
+
+   Bug trouvé lors d'un audit (08/09/2026) : VERSION n'avait jamais
+   été bumpé depuis la création du fichier, alors que 2 ships entre
+   temps touchaient des fichiers précachés (ajout du pilier Calculus,
+   correctif de débordement KaTeX) — sw.js lui-même n'ayant pas
+   changé, le navigateur n'avait aucun signal pour réinstaller le
+   worker, donc ces correctifs restaient invisibles pour quiconque
+   avait déjà déclenché le service worker. Calculus manquait aussi
+   entièrement de PRECACHE_URLS (le seul pilier actif du site était
+   donc injoignable hors-ligne). Corrigé : URLs de Calculus + pwa.js
+   ajoutées, VERSION passé à 2. Réflexe à prendre pour la suite :
+   bumper VERSION à CHAQUE ship touchant un fichier précaché, pas
+   seulement quand on y pense. */
+const VERSION = 2;
 const CACHE_NAME = 'exercices-l1-math-v' + VERSION;
 
 const PRECACHE_URLS = [
   './', 'index.html', 'algebre.html', 'analyse.html', 'probabilites.html',
-  'python-applique.html',
-  'style.css', 'engine.js', 'katex-typeset.js',
+  'python-applique.html', 'calculus.html',
+  'style.css', 'engine.js', 'katex-typeset.js', 'pwa.js',
   'data/algebre-index.js', 'data/algebre.js',
   'data/analyse-index.js', 'data/analyse.js',
   'data/probabilites-index.js', 'data/probabilites.js',
   'data/python-applique.js',
+  'data/calculus-index.js', 'data/calculus.js',
   'manifest.json',
   'icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touch-icon.png',
   'vendor/katex/katex.min.css', 'vendor/katex/katex.min.js',

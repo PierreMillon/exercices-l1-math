@@ -196,7 +196,10 @@ function initPillar(pillarKey, types){
     let allShown = false;
     toggleBtn.addEventListener('click', () => {
       allShown = !allShown;
-      container.querySelectorAll('.solution').forEach(sol => { sol.hidden = !allShown; });
+      // Scopé à .exercice : .solution existe aussi dans .exemple (toujours
+      // visible par design, cf. le format documenté en tête de fichier) —
+      // un sélecteur non scopé la cache aussi par erreur.
+      container.querySelectorAll('.exercice .solution').forEach(sol => { sol.hidden = !allShown; });
       container.querySelectorAll('.feedback').forEach(fb => { fb.hidden = !allShown; });
       container.querySelectorAll('.js-reveal').forEach(btn => {
         btn.textContent = allShown ? 'Masquer la solution' : 'Voir la solution rédigée';
