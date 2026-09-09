@@ -5,7 +5,20 @@
    limités. Voir engine.js pour le format attendu.
    L'exemple « Dérivation » est adapté d'un TD de Calculus L1
    (Séance 4, INU Champollion, source Drive).
-   ============================================================ */
+
+   +2 types ajoutés le 09/09/2026, à partir du vrai cours de cette
+   année (4 photos, dossier Math > Analyse du Drive, « COURS ANALYSE
+   Licence 1 », L1 mathématique INU Champollion, prof CHARRON A.,
+   pages 1-4 — même source que les §10-§14 ajoutées le même jour sur
+   licence-math/fiches/analyse.js) : « inegalites-monotones » et
+   « densite-partie-entiere ». Les 5 types déjà présents ci-dessus
+   sont ANTÉRIEURS à la méthode "reconstruire à partir des vrais TD"
+   (adoptée le 08/09/2026, voir README.md) et n'ont pas encore été
+   repris — laissés tels quels en attendant leur tour, comme convenu
+   pour ce pilier (suspendu, `index.html`). Ce fichier reste chargé
+   uniquement par `analyse.html`, toujours absent de `index.html` — le
+   déblocage du pilier reste une décision explicite séparée, une fois
+   suffisamment de séances réelles couvertes. */
 
 const ANALYSE_TYPES = [
   {
@@ -299,6 +312,136 @@ const ANALYSE_TYPES = [
           = x+x^2-\\dfrac{x^2}{2}+o(x^2)=x+\\dfrac{x^2}{2}+o(x^2)\\).<br>
           Un équivalent en 0 est donné par le premier terme non nul :
           \\(f(x)\\sim x\\).`,
+      },
+    ],
+  },
+
+  {
+    id: 'inegalites-monotones',
+    title: 'Modifier une inégalité / composer avec une fonction monotone',
+    signal: `L'énoncé demande de comparer deux expressions, d'encadrer une
+      quantité, ou de justifier une inégalité en appliquant une fonction
+      (racine, carré, inverse...) aux deux membres d'une inégalité déjà
+      connue.`,
+    methode: [
+      `Réflexe de base : \\(A\\le B \\Leftrightarrow A-B\\le0\\) — étudier le
+       signe d'une différence plutôt que manipuler l'inégalité brute.`,
+      `Deux inégalités de même sens s'additionnent : \\(a<b\\) et \\(c<d\\)
+       \\(\\Rightarrow\\) \\(a+c<b+d\\) — on ne peut PAS les soustraire
+       membre à membre.`,
+      `Multiplier les deux membres par un réel change le sens de
+       l'inégalité si (et seulement si) ce réel est négatif — toujours
+       vérifier le signe avant de multiplier.`,
+      `Composer par une fonction strictement croissante sur un intervalle
+       \\(I\\) conserve le sens et donne une ÉQUIVALENCE (pas seulement une
+       implication) tant que les membres restent dans \\(I\\) ; par une
+       fonction strictement décroissante, le sens s'inverse. Sans le
+       caractère STRICT, on ne garde qu'une implication (une fonction
+       croissante non stricte peut être constante sur un intervalle).`,
+      `<b>Piège classique</b> : la fonction inverse est strictement
+       décroissante sur \\(\\mathbb{R}_+^*\\) et sur \\(\\mathbb{R}_-^*\\)
+       séparément, mais pas sur \\(\\mathbb{R}^*\\) tout entier (qui n'est
+       pas un intervalle) — \\(a<b \\Rightarrow \\dfrac1a>\\dfrac1b\\)
+       n'est vraie que si \\(a\\) et \\(b\\) sont de même signe.`,
+    ],
+    exemple: {
+      enonce: `Soit \\(x\\) réel tel que \\(2\\le x\\le5\\). Montrer que
+        \\(\\dfrac{1}{\\sqrt5}\\le\\dfrac{1}{\\sqrt x}\\le\\dfrac{1}{\\sqrt2}\\).`,
+      solution: `La fonction \\(t\\mapsto\\sqrt t\\) est strictement croissante
+        sur \\(\\mathbb{R}_+\\), donc composer l'inégalité \\(2\\le x\\le5\\)
+        par \\(\\sqrt{\\cdot}\\) donne (équivalence) \\(\\sqrt2\\le\\sqrt x\\le\\sqrt5\\).<br>
+        La fonction \\(t\\mapsto\\dfrac1t\\) est strictement décroissante sur
+        \\(\\mathbb{R}_+^*\\), et \\(\\sqrt2,\\sqrt x,\\sqrt5\\) sont bien
+        dans \\(\\mathbb{R}_+^*\\) : en composant, le sens s'inverse et
+        \\(\\dfrac{1}{\\sqrt5}\\le\\dfrac{1}{\\sqrt x}\\le\\dfrac{1}{\\sqrt2}\\).`,
+    },
+    exercices: [
+      {
+        enonce: `Soit \\(x\\) réel tel que \\(-3\\le x\\le-1\\). Montrer que
+          \\(\\dfrac19\\le\\dfrac{1}{x^2}\\le1\\).`,
+        solution: `Sur \\(\\mathbb{R}_-\\), la fonction \\(t\\mapsto t^2\\) est
+          strictement décroissante — attention, le sens s'inverse :
+          \\(-3\\le x\\le-1\\) donne \\((-1)^2\\le x^2\\le(-3)^2\\), soit
+          \\(1\\le x^2\\le9\\).<br>
+          La fonction \\(t\\mapsto\\dfrac1t\\) est strictement décroissante
+          sur \\(\\mathbb{R}_+^*\\), et \\(x^2\\in[1,9]\\subset\\mathbb{R}_+^*\\) :
+          en composant, \\(\\dfrac19\\le\\dfrac{1}{x^2}\\le\\dfrac11\\), soit
+          \\(\\dfrac19\\le\\dfrac{1}{x^2}\\le1\\).`,
+      },
+      {
+        enonce: `Montrer que pour tout \\(x\\ge0\\), \\(\\sqrt{x+1}\\le\\sqrt x+1\\).`,
+        solution: `Les deux membres sont \\(\\ge0\\) (\\(\\sqrt{x+1}\\ge0\\) et
+          \\(\\sqrt x+1>0\\)), et \\(t\\mapsto t^2\\) est strictement
+          croissante sur \\(\\mathbb{R}_+\\) : comparer \\(\\sqrt{x+1}\\) et
+          \\(\\sqrt x+1\\) équivaut donc à comparer leurs carrés (réflexe de
+          base sur la différence) :<br>
+          \\((\\sqrt x+1)^2-(x+1) = (x+2\\sqrt x+1)-(x+1) = 2\\sqrt x \\ge0\\)
+          pour \\(x\\ge0\\).<br>
+          Donc \\((\\sqrt x+1)^2\\ge(\\sqrt{x+1})^2\\), et par la réciproque
+          (croissance stricte de \\(\\sqrt{\\cdot}\\)), \\(\\sqrt x+1\\ge\\sqrt{x+1}\\).`,
+      },
+    ],
+  },
+
+  {
+    id: 'densite-partie-entiere',
+    title: 'Densité de Q (et des irrationnels) dans R via la partie entière',
+    signal: `L'énoncé demande de montrer qu'il existe un rationnel (ou un
+      irrationnel) strictement entre deux réels donnés — souvent formulé
+      « montrer que \\(\\mathbb{Q}\\) est dense dans \\(\\mathbb{R}\\) », ou
+      une construction explicite à exhiber.`,
+    methode: [
+      `Rappel : pour tout réel \\(t\\), la partie entière \\(E(t)\\) est
+       l'unique entier tel que \\(E(t)\\le t<E(t)+1\\).`,
+      `Pour \\(x<y\\) réels, choisir (propriété d'Archimède) un entier
+       \\(n\\ge1\\) tel que \\(n(y-x)>1\\), c'est-à-dire \\(n>\\dfrac{1}{y-x}\\).`,
+      `Poser \\(m=E(nx)+1\\). Par définition de \\(E\\), \\(m>nx\\) ; et
+       \\(m=E(nx)+1\\le nx+1<ny\\) (car \\(n(y-x)>1 \\Leftrightarrow nx+1<ny\\)).
+       Donc \\(nx<m<ny\\), et en divisant par \\(n>0\\) (ne change pas le
+       sens) : \\(x<\\dfrac mn<y\\), avec \\(q=\\dfrac mn\\in\\mathbb{Q}\\).`,
+      `Pour un irrationnel entre \\(x\\) et \\(y\\) : appliquer la densité de
+       \\(\\mathbb{Q}\\) aux réels \\(x-\\sqrt2\\) et \\(y-\\sqrt2\\)
+       (\\(x-\\sqrt2<y-\\sqrt2\\)) pour obtenir \\(r\\in\\mathbb{Q}\\) tel que
+       \\(x-\\sqrt2<r<y-\\sqrt2\\), donc \\(x<r+\\sqrt2<y\\) ; et
+       \\(r+\\sqrt2\\) est irrationnel (sinon \\(\\sqrt2=(r+\\sqrt2)-r\\)
+       serait rationnel).`,
+    ],
+    exemple: {
+      enonce: `Exhiber un rationnel strictement compris entre \\(x=1{,}41\\) et
+        \\(y=1{,}42\\).`,
+      solution: `\\(y-x=0{,}01\\), donc on choisit \\(n>\\dfrac{1}{0{,}01}=100\\),
+        par exemple \\(n=101\\).<br>
+        \\(nx=101\\times1{,}41=142{,}41\\), donc \\(E(nx)=142\\) et
+        \\(m=E(nx)+1=143\\).<br>
+        Vérification : \\(nx=142{,}41<143<ny=101\\times1{,}42=143{,}42\\).
+        En divisant par \\(n=101\\) : \\(x<\\dfrac{143}{101}<y\\).<br>
+        \\(\\dfrac{143}{101}\\approx1{,}41584\\) est bien compris entre
+        \\(1{,}41\\) et \\(1{,}42\\) : \\(q=\\dfrac{143}{101}\\) convient.`,
+    },
+    exercices: [
+      {
+        enonce: `Exhiber un rationnel strictement compris entre \\(x=\\sqrt2\\)
+          et \\(y=\\sqrt2+0{,}001\\) (on donne \\(\\sqrt2\\approx1{,}414214\\)).`,
+        solution: `\\(y-x=0{,}001\\), donc on choisit \\(n>1000\\), par exemple
+          \\(n=1001\\).<br>
+          \\(nx\\approx1001\\times1{,}414214\\approx1415{,}628\\), donc
+          \\(E(nx)=1415\\) et \\(m=1416\\).<br>
+          \\(q=\\dfrac{1416}{1001}\\approx1{,}414585\\), bien compris entre
+          \\(x\\approx1{,}414214\\) et \\(y\\approx1{,}415214\\) : \\(q\\)
+          convient.`,
+      },
+      {
+        enonce: `Exhiber un irrationnel strictement compris entre \\(0\\) et
+          \\(0{,}01\\) (on donne \\(\\sqrt2\\approx1{,}414214\\)).`,
+        solution: `On applique la densité de \\(\\mathbb{Q}\\) à
+          \\(x-\\sqrt2=-\\sqrt2\\approx-1{,}414214\\) et
+          \\(y-\\sqrt2=0{,}01-\\sqrt2\\approx-1{,}404214\\) : n'importe quel
+          rationnel strictement entre les deux convient, par exemple
+          \\(r=-1{,}41\\in\\mathbb{Q}\\) (pas besoin de la construction par
+          partie entière dans ce cas, un rationnel décimal simple suffit).<br>
+          Alors \\(r+\\sqrt2\\approx0{,}00421\\) vérifie
+          \\(0<r+\\sqrt2<0{,}01\\), et \\(r+\\sqrt2\\) est irrationnel (sinon
+          \\(\\sqrt2=(r+\\sqrt2)-r\\) serait rationnel, contradiction).`,
       },
     ],
   },

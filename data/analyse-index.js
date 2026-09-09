@@ -11,4 +11,6 @@ const ANALYSE_INDEX = [
   { id: 'series-numeriques', title: 'Nature d\'une série numérique' },
   { id: 'derivation-etude-fonction', title: 'Dérivation et étude de fonction' },
   { id: 'developpements-limites', title: 'Développements limités' },
+  { id: 'inegalites-monotones', title: 'Modifier une inégalité / composer avec une fonction monotone' },
+  { id: 'densite-partie-entiere', title: 'Densité de Q (et des irrationnels) dans R via la partie entière' },
 ];
